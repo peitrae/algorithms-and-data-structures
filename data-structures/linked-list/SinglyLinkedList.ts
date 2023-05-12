@@ -39,7 +39,28 @@ class SinglyLinkedList<T> {
   /**
    * Removes an item at the end of the list.
    */
-  pop() {}
+  pop() {
+    if (!this.head) return null;
+
+    let fast = this.head;
+    let slow = this.head;
+
+    while (fast.next) {
+      slow = fast;
+      fast = fast.next;
+    }
+
+    slow.next = null;
+    this.tail = slow;
+    this.length--;
+
+    if (this.length === 0) {
+      this.head = null;
+      this.tail = null;
+    }
+
+    return fast.value;
+  }
 
   /**
    * Add an item to the beginning of the list.
