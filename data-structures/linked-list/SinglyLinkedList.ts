@@ -79,9 +79,18 @@ class SinglyLinkedList<T> {
   }
 
   /**
-   * Removes an item at the beginning of the list.
+   * Removes an item at the beginning of the list and return the value.
    */
-  shift() {};
+  shift() {
+    if (this.head === null) return null;
+    else if (this.length === 1) this.tail = null;
+
+    const value = this.head.value;
+    this.head = this.head.next;
+    this.length--;
+
+    return value;
+  };
 
   /**
    * Returns an item at a specific index of the list.
