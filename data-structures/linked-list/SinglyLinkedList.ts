@@ -65,7 +65,18 @@ class SinglyLinkedList<T> {
   /**
    * Add an item to the beginning of the list.
    */
-  unshift(value: T) {}
+  unshift(value: T) {
+    const newNode = new SinglyNode(value);
+
+    newNode.next = this.head;
+    this.head = newNode;
+
+    if(this.length === 0) {
+      this.tail = newNode;
+    }
+
+    this.length++;
+  }
 
   /**
    * Removes an item at the beginning of the list.
