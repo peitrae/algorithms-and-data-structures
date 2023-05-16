@@ -95,7 +95,19 @@ class SinglyLinkedList<T> {
   /**
    * Returns an item at a specific index of the list.
    */
-  get(index: number) {}
+  get(index: number) {
+    if (index < 0 || index > this.length - 1) return null;
+
+    let counter = 0;
+    let currentNode = this.head!;
+
+    while (counter < index) {
+      currentNode = currentNode.next!;
+      counter++;
+    }
+
+    return currentNode.value;
+  }
 
   /**
    * Add an item at a specifix index of the list.
