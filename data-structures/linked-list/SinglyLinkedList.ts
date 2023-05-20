@@ -19,108 +19,138 @@ class SinglyLinkedList<T> {
 		this.length = 0;
 	}
 
-  /**
-   * Pushes an item into the end of the list.
-   */
-  push(value: T) {
-    const newNode = new SinglyNode(value);
+	/**
+	 * Pushes an item into the end of the list.
+	 */
+	push(value: T) {
+		const newNode = new SinglyNode(value);
 
-    if(this.tail === null) {
-      this.head = newNode;
-      this.tail = newNode;
-    } else {
-      this.tail.next = newNode;
-      this.tail = newNode;
-    }
+		if (this.tail === null) {
+			this.head = newNode;
+			this.tail = newNode;
+		} else {
+			this.tail.next = newNode;
+			this.tail = newNode;
+		}
 
-    this.length++;
-  }
+		this.length++;
+	}
 
-  /**
-   * Removes an item at the end of the list.
-   */
-  pop() {
-    if (!this.head) return null;
+	/**
+	 * Removes an item at the end of the list.
+	 */
+	pop() {
+		if (!this.head) return null;
 
-    let fast = this.head;
-    let slow = this.head;
+		let fast = this.head;
+		let slow = this.head;
 
-    while (fast.next) {
-      slow = fast;
-      fast = fast.next;
-    }
+		while (fast.next) {
+			slow = fast;
+			fast = fast.next;
+		}
 
-    slow.next = null;
-    this.tail = slow;
-    this.length--;
+		slow.next = null;
+		this.tail = slow;
+		this.length--;
 
-    if (this.length === 0) {
-      this.head = null;
-      this.tail = null;
-    }
+		if (this.length === 0) {
+			this.head = null;
+			this.tail = null;
+		}
 
-    return fast.value;
-  }
+		return fast.value;
+	}
 
-  /**
-   * Add an item to the beginning of the list.
-   */
-  unshift(value: T) {
-    const newNode = new SinglyNode(value);
+	/**
+	 * Add an item to the beginning of the list.
+	 */
+	unshift(value: T) {
+		const newNode = new SinglyNode(value);
 
-    newNode.next = this.head;
-    this.head = newNode;
+		newNode.next = this.head;
+		this.head = newNode;
 
-    if(this.length === 0) {
-      this.tail = newNode;
-    }
+		if (this.length === 0) {
+			this.tail = newNode;
+		}
 
-    this.length++;
-  }
+		this.length++;
+	}
 
-  /**
-   * Removes an item at the beginning of the list and return the value.
-   */
-  shift() {
-    if (this.head === null) return null;
-    else if (this.length === 1) this.tail = null;
+	/**
+	 * Removes an item at the beginning of the list and return the value.
+	 */
+	shift() {
+		if (this.head === null) return null;
+		else if (this.length === 1) this.tail = null;
 
-    const value = this.head.value;
-    this.head = this.head.next;
-    this.length--;
+		const value = this.head.value;
+		this.head = this.head.next;
+		this.length--;
 
-    return value;
-  };
+		return value;
+	}
 
-  /**
-   * Returns an item at a specific index of the list.
-   */
-  get(index: number) {
-    if (index < 0 || index > this.length - 1) return null;
+	/**
+	 * Returns an item at a specific index of the list.
+	 */
+	get(index: number) {
+		if (index < 0 || index > this.length - 1) return null;
 
-    let counter = 0;
-    let currentNode = this.head!;
+		let counter = 0;
+		let currentNode = this.head!;
 
-    while (counter < index) {
-      currentNode = currentNode.next!;
-      counter++;
-    }
+		while (counter < index) {
+			currentNode = currentNode.next!;
+			counter++;
+		}
 
-    return currentNode.value;
-  }
+		return currentNode.value;
+	}
 
-  /**
-   * Add an item at a specifix index of the list.
-   */
-  insert(value: T, index: number) {}
+	/**
+	 * Add an item at a specifix index of the list.
+	 */
+	insert(value: T, index: number) {
+		if (index < 0 || index > this.length) {
+			return false;
+		}
 
-  /**
-   * Removes an item at a specifix index of the list.
-   */
-  remove(index: number) {}
+		if (index === 0) {
+			return this.unshift(value);
+		}
 
-  /**
-   * Reverses order of the items of the list.
-   */
-  reverse() {}
+		if (index === this.length) {
+			return this.push(value);
+		}
+
+		let counter = 0;
+		let prevNode = this.head as SinglyNode<T>;
+		let currNode = this.head as SinglyNode<T>;
+		const newNode = new SinglyNode(value);
+
+		while (counter < index) {
+			prevNode = currNode;
+			currNode = currNode.next!;
+
+			counter++;
+		}
+
+		prevNode.next = newNode;
+		newNode.next = currNode;
+		this.length++;
+
+		return true;
+	}
+
+	/**
+	 * Removes an item at a specifix index of the list.
+	 */
+	remove(index: number) {}
+
+	/**
+	 * Reverses order of the items of the list.
+	 */
+	reverse() {}
 }
