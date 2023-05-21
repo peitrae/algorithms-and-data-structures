@@ -147,7 +147,34 @@ class SinglyLinkedList<T> {
 	/**
 	 * Removes an item at a specifix index of the list.
 	 */
-	remove(index: number) {}
+	remove(index: number) {
+		if (index < 0 || index >= this.length) {
+			return false;
+		}
+
+		if (index === 0) {
+			return this.shift();
+		}
+
+		if (index === this.length - 1) {
+			return this.pop();
+		}
+
+		let counter = 0;
+		let prevNode = this.head;
+		let removedNode = this.head;
+
+		while (counter < index) {
+			prevNode = removedNode;
+			removedNode = removedNode!.next;
+			counter++;
+		}
+
+		prevNode!.next = removedNode!.next;
+		this.length--;
+
+		return removedNode!.value;
+	}
 
 	/**
 	 * Reverses order of the items of the list.
